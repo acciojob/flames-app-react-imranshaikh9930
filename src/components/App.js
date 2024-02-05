@@ -62,6 +62,8 @@ const FlamesCalculator = () => {
   };
 
   return (
+    <>
+   
     <div>
       <input
         type="text"
@@ -85,8 +87,9 @@ const FlamesCalculator = () => {
       <button onClick={clearInputs} data-testid="clear">
         Clear
       </button>
-      <h3 data-testid="answer">{relationshipStatus}</h3>
     </div>
+      <h3 data-testid="answer">{relationshipStatus}</h3>
+      </>
   );
 };
 
