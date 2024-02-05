@@ -29,7 +29,7 @@ for(let i=0;i<first.length;i++){
     }
 }
 const len = first.length + second.length;
-console.log(len);
+// console.log(len);
 setAns(flames[len % 6]);
     }
 }
@@ -38,13 +38,13 @@ setAns(flames[len % 6]);
         return(
             <div id="main">
             <input type="text" 
-            data-testid="input1" placeholder="First Name"
+            data-testid="name1" placeholder="First Name"
             value={firstName}
             onChange={(e)=>setFirstName(e.target.value)}
             ></input>
 
             <input type="text" 
-            data-testid="input2" placeholder="Second Name"
+            data-testid="name2" placeholder="Second Name"
             value={secondName}
             onChange={(e)=>setSecondName(e.target.value)}
             ></input>
@@ -60,7 +60,7 @@ setAns(flames[len % 6]);
                   setAns("");
               }}
               >Clear</button>
-              <h3 data-testid="answer">{ans}</h3>
+              <h3 data-test-id="answer">{ans}</h3>
             </div>
         )
 }
