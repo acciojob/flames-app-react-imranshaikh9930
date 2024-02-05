@@ -1,69 +1,91 @@
-import React, { useState} from "react";
-import '../styles/App.css';
+import React, { useState } from 'react';
 
-function App(){
-    const [firstName,setFirstName] = useState("");
-    const [secondName,setSecondName] = useState("");
-    const [ans,setAns] = useState("");
-    const flames = ["Siblings","Friends","Love","Affection","Marriage","Enemy"];
+const FlamesCalculator = () => {
+  const [input1, setInput1] = useState('');
+  const [input2, setInput2] = useState('');
+  const [relationshipStatus, setRelationshipStatus] = useState('');
+  
+  const calculateRelationship = () => {
+    const str1 = input1.toLowerCase();
+    const str2 = input2.toLowerCase();
 
-const handleClick= (e)=>{
-    if(firstName==="" || secondName===""){
-        setAns('Please Enter valid input');
+    if (!str1 || !str2) {
+      setRelationshipStatus('Please Enter valid input');
+      return;
     }
-    else{
 
-        let first = firstName.replace(/\s+/g, '').toLowerCase();
-        let second = secondName.replace(/\s+/g, '').toLowerCase();
-        console.log(first);
-        console.log(second);
-        
-for(let i=0;i<first.length;i++){
-    for(let j=0;j<second.length;j++){
-        if(first.charAt(i)===second.charAt(j)){
-            first = first.substring(0,i) + first.substring(i+1,first.length);
+    let commonChars = 0;
+    let remainingStr1 = '';
+    let remainingStr2 = '';
 
-            second = second.substring(0,j)+second.substring(j+1,second.length);
-            i--;
-        }
+    for (const char of str1) {
+      if (str2.includes(char)) {
+        commonChars++;
+        str2.replace(char, '');
+      } else {
+        remainingStr1 += char;
+      }
     }
-}
-const len = first.length + second.length;
-// console.log(len);
-setAns(flames[len % 6]);
+
+    remainingStr2 = str2;
+
+    const result = (remainingStr1.length + remainingStr2.length) % 6;
+
+    switch (result) {
+      case 1:
+        setRelationshipStatus('Friends');
+        break;
+      case 2:
+        setRelationshipStatus('Love');
+        break;
+      case 3:
+        setRelationshipStatus('Affection');
+        break;
+      case 4:
+        setRelationshipStatus('Marriage');
+        break;
+      case 5:
+        setRelationshipStatus('Enemy');
+        break;
+      case 0:
+        setRelationshipStatus('Siblings');
+        break;
+      default:
+        setRelationshipStatus('Please Enter valid input');
     }
-}
+  };
 
+  const clearInputs = () => {
+    setInput1('');
+    setInput2('');
+    setRelationshipStatus('');
+  };
 
-        return(
-            <div id="main">
-            <input type="text" 
-            data-testid="name1" placeholder="First Name"
-            value={firstName}
-            onChange={(e)=>setFirstName(e.target.value)}
-            ></input>
+  return (
+    <div>
+      <input
+        type="text"
+        value={input1}
+        onChange={(e) => setInput1(e.target.value)}
+        data-testid="input1"
+        placeholder="Enter First Name"
+      />
+      <input
+        type="text"
+        value={input2}
+        onChange={(e) => setInput2(e.target.value)}
+        data-testid="input2"
+        placeholder="Enter Second Name"
+      />
+      <button onClick={calculateRelationship} data-testid="calculate_relationship">
+        Calculate Relationship Future
+      </button>
+      <button onClick={clearInputs} data-testid="clear">
+        Clear
+      </button>
+      <h3 data-testid="answer">{relationshipStatus}</h3>
+    </div>
+  );
+};
 
-            <input type="text" 
-            data-testid="name2" placeholder="Second Name"
-            value={secondName}
-            onChange={(e)=>setSecondName(e.target.value)}
-            ></input>
-              
-              <button data-testid="calculate_relationship"
-              onClick={handleClick}
-              >Calculate Relationship Future</button>
-
-              <button data-testid="clear"
-              onClick={()=>{
-                  setFirstName("");
-                  setSecondName("");
-                  setAns("");
-              }}
-              >Clear</button>
-              <h3 data-test-id="answer">{ans}</h3>
-            </div>
-        )
-}
-
-
-export default App;
+export default FlamesCalculator;
