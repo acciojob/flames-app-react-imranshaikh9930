@@ -65,6 +65,7 @@ const FlamesCalculator = () => {
     <div>
       <input
         type="text"
+        name="name1"
         value={input1}
         onChange={(e) => setInput1(e.target.value)}
         data-testid="input1"
@@ -72,6 +73,7 @@ const FlamesCalculator = () => {
       />
       <input
         type="text"
+        name="name2"
         value={input2}
         onChange={(e) => setInput2(e.target.value)}
         data-testid="input2"
